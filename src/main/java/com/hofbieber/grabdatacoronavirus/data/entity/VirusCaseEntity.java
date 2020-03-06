@@ -1,5 +1,7 @@
 package com.hofbieber.grabdatacoronavirus.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ public class VirusCaseEntity {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
     @Basic
     @Column(name = "date", nullable = false)
@@ -24,5 +27,6 @@ public class VirusCaseEntity {
     private double deaths;
     @ManyToOne
     @JoinColumn(name = "country", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private RegionEntity country;
 }
