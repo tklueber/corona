@@ -129,12 +129,16 @@ public class EcdcCoronaVirusDataService implements ICoronaVirusDataService {
     }
 
     private HttpResponse<InputStream> loadData() throws IOException, InterruptedException {
-        DateFormat df = new SimpleDateFormat("d-MMMM-yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
         String dateStr = df.format(new Date()).toLowerCase();
+        String fileStr = String.format(VIRUS_DATA, dateStr);
+
+        System.out.println(fileStr);
+
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format(VIRUS_DATA, dateStr)))
+                .uri(URI.create(fileStr))
                 .build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofInputStream());
